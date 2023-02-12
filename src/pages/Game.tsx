@@ -1,9 +1,7 @@
+import V1 from '../components/game/V1';
+
 const Game = () => {
-  return (
-    <div>
-      <p>Game Page</p>
-    </div>
-  );
+  return <V1 />;
 };
 
 export default Game;
