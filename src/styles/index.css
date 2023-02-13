@@ -21,3 +21,42 @@
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
+
+.shadow-gr {
+  box-shadow: 0 8px 0 #222, 0 10px 15px rgba(0, 0, 0, 0.35);
+}
+
+.shadow-gr2 {
+  box-shadow: 0 8px 0 red, 0 7px 10px rgba(0, 0, 0, 0.25);
+}
+
+.button span {
+  display: inline-block;
+  padding: 0.625em 1em;
+  background: #008752;
+  width: 100%;
+  background-image: linear-gradient(#008752, #007849);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  text-shadow: 0 -1px 1px rgba(7, 51, 34, 0.8);
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.button {
+  display: inline-block;
+  color: #eff6ec;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 8px 0 #004d2f, 0 10px 15px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.button:active {
+  box-shadow: 0 8px 0 #004d2f, 0 7px 10px rgba(0, 0, 0, 0.25);
+}
+
+.button:active span {
+  transform: translateY(4px);
+}

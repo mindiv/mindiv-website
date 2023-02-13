@@ -1,23 +1,50 @@
 import React from 'react';
+import styled from 'styled-components';
 
 interface OptionBtnProps {
   children: React.ReactNode;
-  index: number;
 }
 
-export const OptionButton = ({ children, index }: OptionBtnProps) => {
+export const OptionButton = ({ children }: OptionBtnProps) => {
   return (
-    <button className="border border-gray-700 border-2 text-gray-800 rounded-lg py-4 text-left hover:bg-blue-700 hover:text-gray-100">
-      <span className="px-4 mr-4">{String.fromCharCode(65 + index)}.</span>
-      {children}
+    <ButtonWrap>
+      <span className="">{children}</span>
+    </ButtonWrap>
+  );
+};
+
+export const Button = ({ children }: OptionBtnProps) => {
+  return (
+    <button className="button">
+      <span>{children}</span>
     </button>
   );
 };
 
-export const DefButton = ({ children }: OptionBtnProps) => {
-  return (
-    <button className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-sm text-lg px-5 py-4 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
-      {children}
-    </button>
-  );
-};
+const ButtonWrap = styled.button`
+  display: flex;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 8px 0 #115798, 0 10px 15px rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  transition: box-shadow 0.2s ease-in-out;
+
+  span {
+    width: 100%;
+    padding: 13px 0;
+    background-image: linear-gradient(#66a4e2, #2f7fd0);
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    text-shadow: 0 -1px 1px rgba(7, 51, 34, 0.8);
+  }
+
+  :active {
+    box-shadow: 0 8px 0 #115798, 0 7px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  :active span {
+    transform: translateY(4px);
+  }
+`;

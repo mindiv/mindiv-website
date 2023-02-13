@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getQuestions } from '../features/gameSlice';
+import { Button } from './Button';
 import Question from './Question';
 
 const GameLayout = () => {
@@ -27,9 +28,9 @@ const GameLayout = () => {
   };
 
   return (
-    <div>
+    <div className="h-screen flex flex-col items-center w-full justify-center">
       {currentQuestion < questions.length ? renderQuestion() : renderResult()}
-      {currentQuestion < questions.length && <button>Next</button>}
+      {currentQuestion < questions.length && <Button>Next Question</Button>}
     </div>
   );
 };
