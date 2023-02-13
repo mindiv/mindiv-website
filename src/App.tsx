@@ -4,6 +4,7 @@ import { useAppDispatch } from './app/hooks';
 import { getCategories } from './features/gameSlice';
 import Game from './pages/Game';
 import Index from './pages/Index';
+import 'animate.css/animate.min.css';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-800">
+    <div className="">
       <BrowserRouter>
         <Routes>
           <Route index element={<Index />} />

@@ -1,7 +1,12 @@
-import V1 from '../components/game/V1';
+import V3 from '../components/game/V3';
+import GameLayout from '../components/GameLayout';
 
 const Game = () => {
-  return <V1 />;
+  return (
+    <div className="bg-gray-900 min-h-screen">
+      <GameLayout />
+    </div>
+  );
 };
 
 export default Game;

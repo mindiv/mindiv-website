@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getQuestions } from '../../features/gameSlice';
+import {
+  GameBox,
+  OptionBtn,
+  OptionsWrap,
+  QuestionWrap,
+  Wrapper,
+} from './style';
 
-const V2 = () => {
+const V3 = () => {
   const dispatch = useAppDispatch();
   const { questions } = useAppSelector((state) => state.game);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -37,29 +44,35 @@ const V2 = () => {
   };
 
   const renderQuestion = () => {
-    const { question, options } = questions[currentQuestion];
+    const { question, options, answer } = questions[currentQuestion];
 
     return (
-      <div>
-        <p>{question}</p>
-        {options.map((option) => (
-          <p
-            key={option}
-            style={{
-              color:
-                selectedOption === option
-                  ? answered &&
-                    selectedOption !== questions[currentQuestion].answer
-                    ? 'red'
-                    : 'green'
-                  : 'black',
-            }}
-            onClick={() => handleOptionClick(option)}
-          >
-            {option}
-          </p>
-        ))}
-      </div>
+      <GameBox>
+        <div className="main-top">
+          <div className="card1"></div>
+          <div className="card2"></div>
+          <QuestionWrap>
+            <p>{question}</p>
+          </QuestionWrap>
+        </div>
+        <OptionsWrap>
+          {options.map((option) => (
+            <OptionBtn
+              key={option}
+              onClick={() => handleOptionClick(option)}
+              className={`${
+                answered && option === answer
+                  ? 'correct flash'
+                  : option === selectedOption
+                  ? 'wrong'
+                  : ''
+              }`}
+            >
+              {option}
+            </OptionBtn>
+          ))}
+        </OptionsWrap>
+      </GameBox>
     );
   };
 
@@ -95,13 +108,13 @@ const V2 = () => {
   };
 
   return (
-    <div>
+    <Wrapper>
       {currentQuestion < questions.length ? renderQuestion() : renderResult()}
       {currentQuestion < questions.length && (
         <button onClick={handleNextClick}>Next</button>
       )}
-    </div>
+    </Wrapper>
   );
 };
 
-export default V2;
+export default V3;

@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 const Index = () => {
   return (
-    <div className="">
+    <div className="min-h-screen bg-gray-800">
       <div className="container mx-auto px-2">
         <Header />
         <div className="flex flex-col justify-center items-center">
