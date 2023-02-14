@@ -7,11 +7,11 @@ const Header = () => {
         Mindiv
       </Link>
       <div>
-        <ul>
+        {/* <ul>
           <li>
             <Link to="/">Study</Link>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

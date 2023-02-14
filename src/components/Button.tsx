@@ -53,7 +53,7 @@ const ButtonWrap = styled.button`
     width: 100%;
     height: 100%;
     padding: 13px;
-    background-image: linear-gradient(#66a4e2, #2f7fd0);
+    background-image: linear-gradient(#2e89e5, #2f7fd0);
     border-radius: 8px;
     transition: transform 0.2s ease-in-out;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
