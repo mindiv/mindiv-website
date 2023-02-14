@@ -94,7 +94,7 @@ const GameLayout = () => {
     return <div>Result</div>;
   };
 
-  if (questions && questions.length > 0) {
+  if (questions.length > 0) {
     return (
       <div className="h-screen flex flex-col items-center w-full justify-center">
         {currentQuestion < questions.length ? renderQuestion() : renderResult()}

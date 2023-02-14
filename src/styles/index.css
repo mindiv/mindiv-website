@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: 'Roboto';
+}
+
 .heading {
   font-family: 'Roboto' !important;
   font-size: 50px;
