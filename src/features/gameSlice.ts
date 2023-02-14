@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { AxiosRequestConfig } from 'axios';
 import { CategoryData, QuestionData } from '../interfaces/game.interface';
 import { api } from '../services/api';
 import { BASE_URL } from '../utils/constants';
@@ -7,12 +8,18 @@ interface GameState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   categories: CategoryData[];
   questions: QuestionData[];
+  view: string;
+  selectedCategories: string[];
+  difficulty: string;
 }
 
 const initialState: GameState = {
   status: 'idle',
   categories: [],
   questions: [],
+  view: 'categories',
+  selectedCategories: [],
+  difficulty: 'easy',
 };
 
 export const getCategories = createAsyncThunk(
@@ -31,8 +38,17 @@ export const getQuestions = createAsyncThunk(
   'game/getQuestions',
   async (_, thunkAPI) => {
     try {
+      const state: any = thunkAPI.getState();
+      const config: AxiosRequestConfig = {
+        params: {
+          categories: state.game.selectedCategories,
+          difficulty: state.game.difficulty,
+          numberOfQuestions: 4,
+        },
+      };
       const { data } = await api.get(
-        `${BASE_URL}/question/questions_to_answer/63e25e5c7aa1792cf9603f54,63e2e021398a7e0e92409bb2/easy/4`
+        `${BASE_URL}/question/questions_to_answer/`,
+        config
       );
       return data;
     } catch (error: any) {
@@ -44,7 +60,14 @@ export const getQuestions = createAsyncThunk(
 const gameSlice = createSlice({
   name: 'game',
   initialState,
-  reducers: {},
+  reducers: {
+    setGameCategories(state, action: PayloadAction<any>) {
+      state.selectedCategories = action.payload;
+    },
+    setView(state, action: PayloadAction<string>) {
+      state.view = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCategories.pending, (state) => {
@@ -69,4 +92,5 @@ const gameSlice = createSlice({
   },
 });
 
+export const { setGameCategories, setView } = gameSlice.actions;
 export default gameSlice.reducer;

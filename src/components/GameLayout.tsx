@@ -16,6 +16,7 @@ const GameLayout = () => {
 
   useEffect(() => {
     setLoading(true);
+
     dispatch(getQuestions())
       .unwrap()
       .then(() => setLoading(false));
@@ -47,8 +48,8 @@ const GameLayout = () => {
 
     return (
       <div className="flex flex-col justify-center items-center w-full h-screen">
-        <div className="w-full flex-1 flex justify-center items-center">
-          <div className="flex flex-col w-2/3">
+        <div className="w-full flex justify-center items-center">
+          <div className="flex flex-col w-full md:w-2/3">
             <div className=" mb-10 relative flex justify-center">
               <div className="absolute bg-gray-700 shadow_g h-20 w-full z-4 paper1  rounded-lg" />
               <div className="absolute bg-gray-700 shadow_g h-20  w-full z-1 paper2 rounded-lg" />
@@ -56,7 +57,7 @@ const GameLayout = () => {
                 <p className="text-lg mb-10 animate__animated animate__zoomIn text-gray-200">
                   {question}
                 </p>
-                <div className="grid grid-cols-2 gap-4 w-full">
+                <div className="grid md:grid-cols-2 gap-4 w-full">
                   {options.map((option) => (
                     <OptionButton
                       key={option}
@@ -93,11 +94,15 @@ const GameLayout = () => {
     return <div>Result</div>;
   };
 
-  return (
-    <div className="h-screen flex flex-col items-center w-full justify-center">
-      {currentQuestion < questions.length ? renderQuestion() : renderResult()}
-    </div>
-  );
+  if (questions && questions.length > 0) {
+    return (
+      <div className="h-screen flex flex-col items-center w-full justify-center">
+        {currentQuestion < questions.length ? renderQuestion() : renderResult()}
+      </div>
+    );
+  }
+
+  return <div>No Game</div>;
 };
 
 export default GameLayout;

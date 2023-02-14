@@ -9,4 +9,5 @@ export interface QuestionData {
 export interface CategoryData {
   _id: string;
   name: string;
+  cover: string;
 }

@@ -1,37 +1,88 @@
-import React, { useState } from 'react';
-import { useAppSelector } from '../app/hooks';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setGameCategories, setView } from '../features/gameSlice';
+import { CategoryData } from '../interfaces/game.interface';
+import { Button } from './Button';
 
 const Categories = () => {
+  const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.game);
+  const [allCategories, setAllCategories] = useState<CategoryData[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-  const handleCategoryClick = (categoryId: string) => {
-    if (selectedCategories.length === 2) {
-      return;
-    }
+  useEffect(() => {
+    setAllCategories([
+      {
+        _id: 'all',
+        name: 'All Categories',
+        cover:
+          'https://res.cloudinary.com/dwhg0s0hw/image/upload/v1676375138/mindiv/chess1_iqq0c7.jpg',
+      },
+      ...categories,
+    ]);
+  }, [categories]);
 
-    setSelectedCategories([...selectedCategories, categoryId]);
+  const handleCategorySelect = (category: string) => {
+    if (category === 'all') {
+      setSelectedCategories(['all']);
+    } else if (selectedCategories.includes('all')) {
+      setSelectedCategories(selectedCategories.filter((c) => c !== 'all'));
+      setSelectedCategories([category]);
+    } else {
+      if (selectedCategories.length < 5) {
+        setSelectedCategories([...selectedCategories, category]);
+      }
+    }
+  };
+
+  const handleCategoryDeselect = (category: string) => {
+    setSelectedCategories(
+      selectedCategories.filter(
+        (selectedCategory) => selectedCategory !== category
+      )
+    );
+  };
+
+  const handleGamePresets = () => {
+    dispatch(setGameCategories(selectedCategories));
+    dispatch(setView('game'));
   };
 
   return (
-    <div className="lg:w-2/3 mx-auto w-full">
+    <div className="lg:w-3/4 mx-auto w-full">
       <Heading />
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 ">
-        {categories.map((category) => (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        {allCategories.map((category) => (
           <div
             key={category._id}
-            onClick={() => handleCategoryClick(category._id)}
-            className={` text-gray-200 p-1 rounded-lg cursor-pointer border-gray-900 border-2 ${
-              selectedCategories.includes(category._id) ? 'border-gray-600' : ''
+            onClick={() =>
+              selectedCategories.includes(category._id)
+                ? handleCategoryDeselect(category._id)
+                : handleCategorySelect(category._id)
+            }
+            className={` text-gray-200 p-2 rounded-lg cursor-pointer border-gray-600 border-2 ${
+              selectedCategories.includes(category._id) ? 'border-blue-400' : ''
             }`}
           >
             <div
-              className={`bg-gray-700 text-gray-200 p-4 rounded-lg cursor-pointer`}
+              className={`relative h-40 bg-gray-700 text-gray-200 rounded-lg cursor-pointer flex flex-col justify-center items-center overflow-hidden`}
             >
-              {category.name}
+              <img
+                className="w-full h-full object-cover rounded-lg"
+                src={category.cover}
+              />
+              <div className="absolute flex justify-center bg-black/50 items-center w-full h-full t-0 hover:opacity-0">
+                {category.name}
+              </div>
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center items-center h-20">
+        {!!selectedCategories.length && (
+          <Button click={handleGamePresets}>Save and Continue</Button>
+        )}
       </div>
     </div>
   );
