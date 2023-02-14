@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getQuestions } from '../features/gameSlice';
+import { shuffleArray } from '../utils/shuffle';
 import { Button, OptionButton } from './Button';
 
 const GameLayout = () => {
@@ -43,6 +44,7 @@ const GameLayout = () => {
 
   const renderQuestion = () => {
     const { question, options, answer } = questions[currentQuestion];
+
     return (
       <div className="flex justify-center items-center w-full">
         <div className="flex flex-col w-2/3">
@@ -83,13 +85,15 @@ const GameLayout = () => {
   return (
     <div className="h-screen flex flex-col items-center w-full justify-center">
       {currentQuestion < questions.length ? renderQuestion() : renderResult()}
-      {answered && currentQuestion < questions.length && (
-        <Button click={handleNextClick}>
-          {currentQuestion + 1 === questions.length
-            ? 'Show Result'
-            : 'Next Question'}
-        </Button>
-      )}
+      <div>
+        {answered && currentQuestion < questions.length && (
+          <Button click={handleNextClick}>
+            {currentQuestion + 1 === questions.length
+              ? 'Show Result'
+              : 'Next Question'}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

@@ -32,9 +32,8 @@ export const getQuestions = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await api.get(
-        `${BASE_URL}/question/questions_to_answer`
+        `${BASE_URL}/question/questions_to_answer/63e25e5c7aa1792cf9603f54,63e2e021398a7e0e92409bb2/easy/4`
       );
-      console.log(data);
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error);
