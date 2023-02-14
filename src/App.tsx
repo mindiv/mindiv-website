@@ -14,7 +14,7 @@ function App() {
   }, []);
 
   return (
-    <div className="">
+    <div className="bg-gray-900 min-h-screen">
       <BrowserRouter>
         <Routes>
           <Route index element={<Index />} />

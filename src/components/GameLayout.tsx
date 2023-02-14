@@ -46,34 +46,45 @@ const GameLayout = () => {
     const { question, options, answer } = questions[currentQuestion];
 
     return (
-      <div className="flex justify-center items-center w-full">
-        <div className="flex flex-col w-2/3">
-          <div className=" mb-10 relative flex justify-center">
-            <div className="absolute bg-gray-700 shadow_g h-20 w-full z-4 paper1  rounded-lg" />
-            <div className="absolute bg-gray-700 shadow_g h-20  w-full z-1 paper2 rounded-lg" />
-            <div className="bg-gray-700 p-10 text-center rounded-lg  shadow_g relative z-3 w-full font-bold flex  flex-col justify-center items-center">
-              <p className="text-lg mb-10 animate__animated animate__zoomIn text-gray-200">
-                {question}
-              </p>
-              <div className="grid grid-cols-2 gap-4 w-full">
-                {options.map((option) => (
-                  <OptionButton
-                    key={option}
-                    click={() => handleOptionClick(option)}
-                    className={`${
-                      answered && option === answer
-                        ? 'correct animate__animated animate__pulse'
-                        : option === selectedOption
-                        ? 'wrong animate__animated animate__headShake'
-                        : ''
-                    }`}
-                  >
-                    {option}
-                  </OptionButton>
-                ))}
+      <div className="flex flex-col justify-center items-center w-full h-screen">
+        <div className="w-full flex-1 flex justify-center items-center">
+          <div className="flex flex-col w-2/3">
+            <div className=" mb-10 relative flex justify-center">
+              <div className="absolute bg-gray-700 shadow_g h-20 w-full z-4 paper1  rounded-lg" />
+              <div className="absolute bg-gray-700 shadow_g h-20  w-full z-1 paper2 rounded-lg" />
+              <div className="bg-gray-700 p-10 text-center rounded-lg  shadow_g relative z-3 w-full font-bold flex  flex-col justify-center items-center">
+                <p className="text-lg mb-10 animate__animated animate__zoomIn text-gray-200">
+                  {question}
+                </p>
+                <div className="grid grid-cols-2 gap-4 w-full">
+                  {options.map((option) => (
+                    <OptionButton
+                      key={option}
+                      click={() => handleOptionClick(option)}
+                      className={`${
+                        answered && option === answer
+                          ? 'correct animate__animated animate__pulse'
+                          : option === selectedOption
+                          ? 'wrong animate__animated animate__headShake'
+                          : ''
+                      }`}
+                    >
+                      {option}
+                    </OptionButton>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className="w-full h-20 flex justify-center items-center">
+          {answered && currentQuestion < questions.length && (
+            <Button click={handleNextClick}>
+              {currentQuestion + 1 === questions.length
+                ? 'Show Result'
+                : 'Next Question'}
+            </Button>
+          )}
         </div>
       </div>
     );
@@ -85,15 +96,6 @@ const GameLayout = () => {
   return (
     <div className="h-screen flex flex-col items-center w-full justify-center">
       {currentQuestion < questions.length ? renderQuestion() : renderResult()}
-      <div>
-        {answered && currentQuestion < questions.length && (
-          <Button click={handleNextClick}>
-            {currentQuestion + 1 === questions.length
-              ? 'Show Result'
-              : 'Next Question'}
-          </Button>
-        )}
-      </div>
     </div>
   );
 };

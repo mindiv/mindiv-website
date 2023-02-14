@@ -1,10 +1,13 @@
+import Categories from '../components/Categories';
 import GameLayout from '../components/GameLayout';
+import Layout from '../components/Layout';
 
 const Game = () => {
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <GameLayout />
-    </div>
+    <Layout>
+      {/* <GameLayout /> */}
+      <Categories />
+    </Layout>
   );
 };
 

@@ -5,3 +5,8 @@ export interface QuestionData {
   correctOption: number;
   options: string[];
 }
+
+export interface CategoryData {
+  _id: string;
+  name: string;
+}

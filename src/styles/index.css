@@ -66,8 +66,8 @@
 }
 
 .correct span {
-  background-color: #008752 !important;
-  background-image: none !important;
+  background: #008752;
+  background-image: linear-gradient(#008752, #007849) !important;
 }
 
 .correct:active span {

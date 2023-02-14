@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { QuestionData } from '../interfaces/game.interface';
+import { CategoryData, QuestionData } from '../interfaces/game.interface';
 import { api } from '../services/api';
 import { BASE_URL } from '../utils/constants';
 
 interface GameState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  categories: [];
+  categories: CategoryData[];
   questions: QuestionData[];
 }
 
