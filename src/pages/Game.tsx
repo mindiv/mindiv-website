@@ -1,4 +1,3 @@
-import V3 from '../components/game/V3';
 import GameLayout from '../components/GameLayout';
 
 const Game = () => {

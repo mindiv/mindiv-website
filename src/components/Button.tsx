@@ -3,19 +3,27 @@ import styled from 'styled-components';
 
 interface OptionBtnProps {
   children: React.ReactNode;
+  className?: string;
+  click?: any;
 }
 
-export const OptionButton = ({ children }: OptionBtnProps) => {
+export const OptionButton = ({
+  children,
+  className,
+  click,
+}: OptionBtnProps) => {
   return (
-    <ButtonWrap>
-      <span className="">{children}</span>
+    <ButtonWrap onClick={click} className={className}>
+      <span>
+        <div className="animate__animated animate__zoomIn">{children}</div>
+      </span>
     </ButtonWrap>
   );
 };
 
-export const Button = ({ children }: OptionBtnProps) => {
+export const Button = ({ children, click }: OptionBtnProps) => {
   return (
-    <button className="button">
+    <button onClick={click} className="button">
       <span>{children}</span>
     </button>
   );

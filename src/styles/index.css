@@ -60,3 +60,25 @@
 .button:active span {
   transform: translateY(4px);
 }
+
+.correct {
+  box-shadow: 0 8px 0 #004d2f, 0 7px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+.correct span {
+  background-color: #008752 !important;
+  background-image: none !important;
+}
+
+.correct:active span {
+  transform: translateY(4px);
+}
+
+.wrong {
+  box-shadow: 0 8px 0 #5b0f06, 0 7px 10px rgba(0, 0, 0, 0.25) !important;
+}
+
+.wrong span {
+  background-color: #ea3824 !important;
+  background-image: none !important;
+}
