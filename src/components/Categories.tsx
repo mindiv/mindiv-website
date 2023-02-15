@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { IoCheckmarkCircle, IoFilter, IoOptions } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setGameCategories, setView } from '../features/gameSlice';
+import {
+  setCount,
+  setDifficulty,
+  setGameCategories,
+  setView,
+} from '../features/gameSlice';
 import { CategoryData } from '../interfaces/game.interface';
 import { Button } from './Button';
 
@@ -10,6 +15,7 @@ const Categories = () => {
   const { categories } = useAppSelector((state) => state.game);
   const [allCategories, setAllCategories] = useState<CategoryData[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
     setAllCategories([
@@ -52,8 +58,9 @@ const Categories = () => {
   return (
     <div className="lg:w-3/4 mx-auto w-full">
       <Heading />
-      <div className="flex justify-end mb-10">
+      <div className="flex justify-end mb-10 relative">
         <button
+          onClick={() => setMenu(!menu)}
           type="button"
           className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 flex items-center"
         >
@@ -62,6 +69,7 @@ const Categories = () => {
             <IoOptions />
           </span>
         </button>
+        {menu && <DropdownCustom />}
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         {allCategories.map((category) => (
@@ -116,6 +124,69 @@ const Heading = () => {
         and customize the number of questions and difficulty level to suit your
         needs. Make your game experience easier and more enjoyable!
       </p>
+    </div>
+  );
+};
+
+const DropdownCustom = () => {
+  const dispatch = useAppDispatch();
+  const { difficulty, count } = useAppSelector((state) => state.game);
+  const difficulties = [
+    { name: 'Easy', alias: 'easy' },
+    { name: 'Medium', alias: 'medium' },
+    { name: 'Hard', alias: 'hard' },
+    { name: 'Random', alias: 'random' },
+  ];
+
+  const counts = [
+    { name: '5', alias: 5 },
+    { name: '10', alias: 10 },
+    { name: '15', alias: 15 },
+    { name: '20', alias: 20 },
+  ];
+
+  const handleSetMode = (alias: string) => {
+    dispatch(setDifficulty(alias));
+  };
+
+  const handleSetCount = (alias: number) => {
+    dispatch(setCount(alias));
+  };
+
+  return (
+    <div className="z-10 absolute py-4 px-3 right-0 mt-20 bg-white divide-y divide-gray-100 rounded shadow-2xl w-96 dark:bg-gray-800 dark:divide-gray-600 text-gray-200">
+      <div className="flex flex-col py-3 justify-center items-center">
+        <h3>Difficulty</h3>
+        <div className="grid grid-cols-4 gap-2 py-2 text-sm text-gray-700 dark:text-gray-200">
+          {difficulties.map((mode) => (
+            <button
+              className={`px-4 py-2 rounded-3xl border-2 text-xs font-bold ${
+                difficulty === mode.alias
+                  ? 'border-blue-400'
+                  : 'border-gray-300'
+              }`}
+              onClick={() => handleSetMode(mode.alias)}
+            >
+              {mode.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="py-3 flex flex-col justify-center items-center">
+        <h3>Number of Questions</h3>
+        <div className="grid grid-cols-4 gap-2 py-2 text-sm text-gray-700 dark:text-gray-200">
+          {counts.map((val) => (
+            <button
+              className={`px-4 py-2 rounded-3xl border-2 text-xs font-bold ${
+                count === val.alias ? 'border-blue-400' : 'border-gray-300'
+              }`}
+              onClick={() => handleSetCount(val.alias)}
+            >
+              {val.name}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

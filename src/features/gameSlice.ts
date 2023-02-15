@@ -11,6 +11,7 @@ interface GameState {
   view: string;
   selectedCategories: string[];
   difficulty: string;
+  count: number;
 }
 
 const initialState: GameState = {
@@ -20,6 +21,7 @@ const initialState: GameState = {
   view: 'categories',
   selectedCategories: [],
   difficulty: 'easy',
+  count: 5,
 };
 
 export const getCategories = createAsyncThunk(
@@ -43,7 +45,7 @@ export const getQuestions = createAsyncThunk(
         params: {
           categories: state.game.selectedCategories,
           difficulty: state.game.difficulty,
-          numberOfQuestions: 4,
+          numberOfQuestions: state.game.count,
         },
       };
       const { data } = await api.get(
@@ -63,6 +65,12 @@ const gameSlice = createSlice({
   reducers: {
     setGameCategories(state, action: PayloadAction<any>) {
       state.selectedCategories = action.payload;
+    },
+    setDifficulty(state, action: PayloadAction<any>) {
+      state.difficulty = action.payload;
+    },
+    setCount(state, action: PayloadAction<any>) {
+      state.count = action.payload;
     },
     setView(state, action: PayloadAction<string>) {
       state.view = action.payload;
@@ -92,5 +100,6 @@ const gameSlice = createSlice({
   },
 });
 
-export const { setGameCategories, setView } = gameSlice.actions;
+export const { setGameCategories, setView, setDifficulty, setCount } =
+  gameSlice.actions;
 export default gameSlice.reducer;

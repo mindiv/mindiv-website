@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getQuestions } from '../features/gameSlice';
 import { shuffleArray } from '../utils/shuffle';
 import { Button, OptionButton } from './Button';
-import happySong from '../../public/happy.mp3';
+import happySong from '../assets/happy.mp3';
 import MusicPlayer from './Music';
 
 const GameLayout = () => {
